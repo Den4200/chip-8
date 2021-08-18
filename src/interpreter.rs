@@ -1,3 +1,5 @@
+use sdl2::pixels::Color;
+use sdl2::rect::Rect;
 use sdl2::render::Canvas;
 use sdl2::video::Window;
 
@@ -46,6 +48,22 @@ impl Interpreter {
             display,
             vram: [0; 2048],
             keys: [0; 16],
+        }
+    }
+
+    pub fn draw(&mut self) {
+        self.display.set_draw_color(Color::BLACK);
+        self.display.clear();
+        self.display.set_draw_color(Color::WHITE);
+
+        for y in 0..32 {
+            for x in 0..64 {
+                if self.vram[y * 32 + x] == 1 {
+                    self.display
+                        .fill_rect(Rect::new(x as i32 * 16, y as i32 * 16, 16, 16))
+                        .unwrap();
+                }
+            }
         }
     }
 }
