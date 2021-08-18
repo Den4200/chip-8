@@ -25,7 +25,7 @@ pub struct Interpreter {
 }
 
 impl Interpreter {
-    pub fn new(rom: Vec<u8>, display: Canvas<Window>) -> Interpreter {
+    pub fn new(rom: Vec<u8>, display: Canvas<Window>) -> Self {
         let mut memory = [0; 4096];
 
         for (i, byte) in rom.iter().enumerate() {

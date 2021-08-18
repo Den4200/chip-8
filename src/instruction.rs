@@ -46,7 +46,7 @@ pub enum Instruction {
 }
 
 impl Instruction {
-    pub fn new(v: u16) -> Option<Instruction> {
+    pub fn new(v: u16) -> Option<Self> {
         match xooo(&v) {
             0x0 => match ooxx(&v) {
                 0xE0 => Some(Instruction::OP_00E0),
