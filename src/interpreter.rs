@@ -7,7 +7,7 @@ use crate::instruction::{Address, Byte, IRegister, Register};
 pub struct Interpreter {
     pub regs: [Register; 16],
     pub i: IRegister,
-    
+
     pub delay_timer: u8,
     pub sound_timer: u8,
 
@@ -19,7 +19,7 @@ pub struct Interpreter {
 
     pub display: Canvas<Window>,
     pub vram: [u8; 2048],
-    pub keys: [bool; 16],
+    pub keys: [u8; 16],
 }
 
 impl Interpreter {
@@ -45,7 +45,7 @@ impl Interpreter {
             sp: 0,
             display,
             vram: [0; 2048],
-            keys: [false; 16],
+            keys: [0; 16],
         }
     }
 }
