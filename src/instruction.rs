@@ -1,0 +1,41 @@
+pub type Address = u16;
+pub type Byte = u8;
+pub type Nibble = u8;
+pub type Register = u8;
+
+pub enum Instruction {
+    OP_00E0,
+    OP_00EE,
+    OP_1NNN(Address),
+    OP_2NNN(Address),
+    OP_3XNN(Register, Value),
+    OP_4XNN(Register, Value),
+    OP_5XY0(Register, Register),
+    OP_6XNN(Register, Value),
+    OP_7XNN(Register, Value),
+    OP_8XY0(Register, Register),
+    OP_8XY1(Register, Register),
+    OP_8XY2(Register, Register),
+    OP_8XY3(Register, Register),
+    OP_8XY4(Register, Register),
+    OP_8XY5(Register, Register),
+    OP_8XY6(Register),
+    OP_8XY7(Register, Register),
+    OP_8XYE(Register),
+    OP_9XY0(Register, Register),
+    OP_ANNN(Address),
+    OP_BNNN(Address),
+    OP_CXNN(Address, Byte),
+    OP_DXYN(Register, Register, Nibble),
+    OP_EX9E(Register),
+    OP_EXA1(Register),
+    OP_FX07(Register),
+    OP_FX0A(Register),
+    OP_FX15(Register),
+    OP_FX18(Register),
+    OP_FX1E(Register),
+    OP_FX29(Register),
+    OP_FX33(Register),
+    OP_FX55(Register),
+    OP_FX65(Register),
+}
