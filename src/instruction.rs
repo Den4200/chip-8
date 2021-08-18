@@ -5,6 +5,7 @@ pub type Byte = u8;
 pub type Nibble = u8;
 pub type Register = u8;
 
+#[allow(non_camel_case_types)]
 pub enum Instruction {
     OP_00E0,
     OP_00EE,
