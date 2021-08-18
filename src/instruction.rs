@@ -3,6 +3,8 @@ use crate::masks::{ooox, ooxo, ooxx, oxoo, oxxx, xooo};
 pub type Address = u16;
 pub type Byte = u8;
 pub type Nibble = u8;
+
+pub type IRegister = u16;
 pub type Register = u8;
 
 #[allow(non_camel_case_types)]
