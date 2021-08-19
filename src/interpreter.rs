@@ -69,7 +69,9 @@ impl Interpreter {
         self.display.present();
     }
 
-    fn tick(&mut self) {
+    pub fn tick(&mut self, keys: [u8; 16]) {
+        self.keys = keys;
+
         if self.delay_timer > 0 {
             self.delay_timer -= 1;
         }
@@ -77,14 +79,24 @@ impl Interpreter {
         if self.sound_timer > 0 {
             self.sound_timer -= 1;
         }
+
+        let opcode = self.get_optcode();
+        match Instruction::new(opcode as u16) {
+            Some(instruction) => self.run_instruction(&instruction),
+            None => println!("unknown instruction"),
+        };
+    }
+
+    fn get_optcode(&self) -> u16 {
+        let pc = self.pc as usize;
+        (self.memory[pc] as u16) << 8 | (self.memory[pc + 1] as u16)
     }
 
     fn pc_next(&mut self) {
         self.pc += 2;
     }
 
-    pub fn run_instruction(&mut self, instruction: &Instruction) {
-        self.tick();
+    fn run_instruction(&mut self, instruction: &Instruction) {
         let mut should_increment = true;
 
         match instruction {
