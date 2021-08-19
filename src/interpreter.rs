@@ -232,10 +232,11 @@ impl Interpreter {
             }
             Instruction::OP_FX33(vx) => {
                 let x = self.regs[*vx as usize];
+                let i = self.i as usize;
 
-                self.memory[self.i as usize] = x / 100;
-                self.memory[self.i as usize + 1] = x / 10 % 10;
-                self.memory[self.i as usize + 2] = x % 10;
+                self.memory[i] = x / 100;
+                self.memory[i + 1] = x / 10 % 10;
+                self.memory[i + 2] = x % 10;
             }
             Instruction::OP_FX55(vx) => {
                 for index in 0..=*vx as usize {
