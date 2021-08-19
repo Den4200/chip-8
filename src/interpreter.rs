@@ -89,7 +89,7 @@ impl Interpreter {
 
         match instruction {
             Instruction::OP_00E0 => {
-                for index in 0..2048 {
+                for index in 0..self.vram.len() {
                     self.vram[index] = 0;
                 }
             }
