@@ -65,6 +65,8 @@ impl Interpreter {
                 }
             }
         }
+
+        self.display.present();
     }
 
     fn tick(&mut self) {
