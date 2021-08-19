@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::{Error, Read};
 mod font;
+mod input;
 mod instruction;
 mod interpreter;
 mod masks;
