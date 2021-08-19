@@ -241,14 +241,14 @@ impl Interpreter {
             Instruction::OP_FX55(vx) => {
                 for index in 0..=*vx as usize {
                     self.memory[self.i as usize + index] = self.regs[index];
+                    self.i += 1;
                 }
-                self.i += *vx as u16 + 1;
             }
             Instruction::OP_FX65(vx) => {
                 for index in 0..=*vx as usize {
                     self.regs[index] = self.memory[self.i as usize + index];
+                    self.i += 1;
                 }
-                self.i += *vx as u16 + 1;
             }
         };
 
