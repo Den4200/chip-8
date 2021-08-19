@@ -189,10 +189,10 @@ impl Interpreter {
                 self.regs[0xF] = 0;
 
                 for byte in 0..*n {
-                    let y = (self.regs[*vy as usize] + byte) % 32;
+                    let y = (self.regs[*vy as usize] + byte) as u16 % 32;
 
                     for bit in 0..8 {
-                        let x = (self.regs[*vx as usize] + bit) % 64;
+                        let x = (self.regs[*vx as usize] + bit) as u16 % 64;
                         let color = (self.memory[(self.i + byte as u16) as usize] >> (7 - bit)) & 1;
 
                         self.regs[0xF] |= color & self.vram[(y * 32 + x) as usize];
