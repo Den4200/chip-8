@@ -1,6 +1,10 @@
 use std::env;
 use std::fs::File;
 use std::io::{Error, Read};
+use std::process::exit;
+use std::thread::sleep;
+use std::time::{Duration, Instant};
+
 mod font;
 mod input;
 mod instruction;
@@ -9,6 +13,9 @@ mod masks;
 
 use input::Input;
 use interpreter::Interpreter;
+
+const CPU_TICK: Duration = Duration::from_millis(2);
+const FRAME_TICK: Duration = Duration::from_millis(16);
 
 fn load_rom(filename: &String) -> Result<Vec<u8>, Error> {
     let mut file = File::open(filename)?;
@@ -41,4 +48,26 @@ fn main() {
     };
 
     let mut interpreter = Interpreter::new(rom, canvas);
+
+    let mut cpu_last = Instant::now();
+    let mut frame_last = Instant::now();
+    loop {
+        if frame_last.elapsed() >= FRAME_TICK {
+            interpreter.draw();
+            frame_last = Instant::now();
+        }
+
+        if cpu_last.elapsed() >= CPU_TICK {
+            let keys = match input.poll() {
+                Some(keys) => keys,
+                None => break,
+            };
+
+            interpreter.tick(keys);
+
+            cpu_last = Instant::now();
+        } else {
+            sleep(CPU_TICK - cpu_last.elapsed());
+        }
+    }
 }
