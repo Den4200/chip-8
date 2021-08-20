@@ -58,7 +58,7 @@ impl Interpreter {
 
         for y in 0..32 {
             for x in 0..64 {
-                if self.vram[y * 32 + x] == 1 {
+                if self.vram[y * 64 + x] == 1 {
                     self.display
                         .fill_rect(Rect::new(x as i32 * 16, y as i32 * 16, 16, 16))
                         .unwrap();
@@ -207,8 +207,8 @@ impl Interpreter {
                         let x = (self.regs[*vx as usize] + bit) as u16 % 64;
                         let color = (self.memory[(self.i + byte as u16) as usize] >> (7 - bit)) & 1;
 
-                        self.regs[0xF] |= color & self.vram[(y * 32 + x) as usize];
-                        self.vram[(y * 32 + x) as usize] ^= color;
+                        self.regs[0xF] |= color & self.vram[(y * 64 + x) as usize];
+                        self.vram[(y * 64 + x) as usize] ^= color;
                     }
                 }
             }
