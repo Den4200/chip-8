@@ -26,6 +26,15 @@ fn load_rom(filename: &String) -> Result<Vec<u8>, Error> {
 }
 
 fn main() {
+    let filename = env::args().nth(1).expect("missing filename argument");
+    let rom = match load_rom(&filename) {
+        Ok(rom) => rom,
+        Err(err) => {
+            println!("error reading {}: {}", filename, err);
+            exit(1);
+        }
+    };
+
     let sdl_context = sdl2::init().unwrap();
 
     let video_subsystem = sdl_context.video().unwrap();
@@ -37,15 +46,6 @@ fn main() {
     let canvas = window.into_canvas().build().unwrap();
 
     let mut input = Input::new(&sdl_context);
-
-    let filename = env::args().nth(1).expect("missing filename argument");
-    let rom = match load_rom(&filename) {
-        Ok(rom) => rom,
-        Err(err) => {
-            println!("error reading {}: {}", filename, err);
-            exit(1);
-        }
-    };
 
     let mut interpreter = Interpreter::new(rom, canvas);
 
