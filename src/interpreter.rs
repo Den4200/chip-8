@@ -167,9 +167,11 @@ impl Interpreter {
                 self.regs[*vx as usize] = x.wrapping_sub(y);
                 self.regs[0xF] = (x > y) as u8;
             }
-            Instruction::OP_8XY6(vx, vy) => {
-                self.regs[*vx as usize] = self.regs[*vy as usize] >> 1;
-                self.regs[0xF] = self.regs[*vy as usize] & 1;
+            Instruction::OP_8XY6(vx) => {
+                let x = self.regs[*vx as usize];
+
+                self.regs[*vx as usize] = x >> 1;
+                self.regs[0xF] = x & 0b1;
             }
             Instruction::OP_8XY7(vx, vy) => {
                 let x = self.regs[*vx as usize];
@@ -178,9 +180,11 @@ impl Interpreter {
                 self.regs[*vx as usize] = y.wrapping_sub(x);
                 self.regs[0xF] = (y > x) as u8;
             }
-            Instruction::OP_8XYE(vx, vy) => {
-                self.regs[*vx as usize] = self.regs[*vy as usize] << 1;
-                self.regs[0xF] = self.regs[*vy as usize] >> 7;
+            Instruction::OP_8XYE(vx) => {
+                let x = self.regs[*vx as usize];
+
+                self.regs[*vx as usize] = x << 1;
+                self.regs[0xF] = x >> 7;
             }
             Instruction::OP_9XY0(vx, vy) => {
                 if self.regs[*vx as usize] != self.regs[*vy as usize] {
