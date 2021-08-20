@@ -28,13 +28,8 @@ impl Interpreter {
     pub fn new(rom: Vec<u8>, display: Canvas<Window>) -> Self {
         let mut memory = [0; 4096];
 
-        for (i, byte) in rom.iter().enumerate() {
-            memory[i + 0x200] = *byte;
-        }
-
-        for (i, byte) in FONT_SET.iter().enumerate() {
-            memory[i] = *byte;
-        }
+        memory[..0x50].copy_from_slice(&FONT_SET);
+        memory[0x200..0x200 + rom.len()].copy_from_slice(&rom);
 
         Interpreter {
             regs: [0; 16],
