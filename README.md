@@ -1,6 +1,8 @@
 # CHIP-8
 A Rust implementation of a CHIP-8 interpreter!
 
+![Breakout](breakout.png)
+
 ## References
 Big thanks to these resources on CHIP-8! I couldn't have done it without them.
 
