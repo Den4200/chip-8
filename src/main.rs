@@ -1,6 +1,7 @@
 use std::env;
 use std::fs::File;
 use std::io::{Error, Read};
+use std::path::Path;
 use std::process::exit;
 use std::thread::sleep;
 use std::time::{Duration, Instant};
@@ -17,7 +18,7 @@ use interpreter::Interpreter;
 const CPU_TICK: Duration = Duration::from_millis(2);
 const FRAME_TICK: Duration = Duration::from_millis(16);
 
-fn load_rom(filename: &String) -> Result<Vec<u8>, Error> {
+fn load_rom(filename: impl AsRef<Path>) -> Result<Vec<u8>, Error> {
     let mut file = File::open(filename)?;
     let mut rom = Vec::new();
 
